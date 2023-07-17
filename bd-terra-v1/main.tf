@@ -2,8 +2,8 @@ provider "aws" {
     region = var.region
 }
 module "ecs-service" {
-  source = "../ecs-block"
+  source = "../bd-terra-modules/ecs-block"
 }
 module "alb" {
-  source = "../lb-block"
+  source = "../bd-terra-modules/lb-block"
 }
