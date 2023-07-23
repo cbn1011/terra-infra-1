@@ -31,3 +31,6 @@ resource "aws_lb_listener_rule" "messaging_rule" {
     Name = "For Messaging"
   }
 }
+output "lb-tg" {
+  value = aws_lb_target_group.target-group.arn
+}

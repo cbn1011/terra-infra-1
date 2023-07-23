@@ -27,3 +27,26 @@ default = {
   host_port = 80
 }
 }
+variable "lb-tg" {
+  type = string
+  # default = "arn:aws:elasticloadbalancing:me-central-1:148889286790:targetgroup/TG-messaging/84289770e68e18d2"
+}
+data "aws_subnets" "vpc_subnets" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.selected.id]
+  }
+  tags = {
+    TIer = "Public"
+  }
+}
+data "aws_subnet" "vpc_subnet" {
+  for_each = toset(data.aws_subnets.vpc_subnets.ids)
+  id       = each.value
+}
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = ["Bestdoc-Uae-MyVPC."]
+  }
+}
